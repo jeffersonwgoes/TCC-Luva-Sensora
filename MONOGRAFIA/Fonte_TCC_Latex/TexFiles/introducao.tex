@@ -1,0 +1,48 @@
+\chapter{Considerações Iniciais} \label{consideracoes_iniciais}
+A linguagem de sinais (LS), é uma idioma não verbal, altamente desenvolvida e organizada, na qual indivíduo usa expressões faciais 
+e gestos com as mãos para se expressar. Nem todas as pessoas conseguem entender e compreender uma linguagem baseada em sinais, os 
+que compreendem, geralmente, são membros da família ou membros da comunidade surda \cite{smartglovecommunication}.
+
+Para \citeonline{Comunicacao}, a Língua Brasileira de Sinais (LIBRAS) é considerado como um idioma que possui uma estrutura 
+gramatical própria, contendo particularidades idiomáticas e variações regionais, as quais assemelham-se ao sotaque ou gírias. 
+Contudo é importante ressaltar a diferença entre LIBRAS e o alfabeto manual, o qual é um recurso para os falantes da língua de 
+sinais que auxilia na representação de siglas, lugares ou algum vocabulário para o qual não existe sinal definido \cite{LIBRAS?}.
+
+Considerando as dificuldades de interação entre as pessoas que falam e os surdos, o protótipo desenvolvido como resultado deste 
+trabalho visa prover uma forma de interação mais efetiva entre essas pessoas utilizando o alfabeto de sinais.
+
+O propósito deste trabalho se deriva do projeto já implementado, o qual tinha por objetivo a elaboração de uma luva com sensores 
+indutivos para detecção do alfabeto manual de LIBRAS. O sucesso em detectar letras as quais não possuem movimento serão levados em 
+conta na implementação de um sensor inercial \cite[p. 95]{RUANI}.
+
+A detecção do alfabeto manual somente com sensores indutivos, dispostos em uma luva sensora construído por \citeonline{RUANI}, 
+possui limitações quando há padrões com movimento, sendo necessária a inclusão de um sensor inercial na luva para o reconhecimento 
+de padrões com movimento.
+
+Levando em consideração o que já foi desenvolvido, ao introduzir um sensor do tipo inercial ao sistema, a captura de dados é sensível ao tempo, e os dados devem ser processados. O microcontrolador atual (MSP430) não suportaria tal carga, sendo necessário o \textit{upgrade} para um ARM Cortex-M3. 
+Considerando que serão classificados há uma necessidade de modificar a rede neural já implementada.
+
+\section{Objetivos}
+\subsection{Objetivo Geral}
+	Aperfeiçoar um sistema para detecção de padrões do alfabeto de LIBRAS por meio de luva sensora, adicionando um sensor 
+inercial e promovendo melhorias de \textit{hardware} necessárias para suportar o processamento dos dados do sensor inercial.
+\subsection{Objetivos Específicos}
+\begin{itemize}
+
+	\item Portar um código existente para o microcontrolador STM32F103C8T6;
+
+	\item Implementar o sensor inercial MPU-6050;
+
+	\item Coletar dados para treinamento e validação de um algoritmo de classificação;
+
+	\item Utilizar algoritmos de aprendizado em Python para realizar treinamento e simulações;
+
+	\item Implementar o algoritmo de classificação no microcontrolador;
+
+	\item Desenvolver uma interface para visualização dos resultados da classificação;
+
+	\item Testar e validar o sistema a partir de outros usuários.
+
+\end{itemize}
+
+%\section{Organização do trabalho}

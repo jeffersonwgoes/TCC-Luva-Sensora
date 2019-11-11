@@ -1,0 +1,260 @@
+% *** Document Style Option des.sty' ***************************************
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{des}[2010/12/15 V1.0 (RM) DES Macros for Synthesis Abstraction. 
+Adapted by (MT) from 2012]
+
+\RequirePackage{amssymb}
+\RequirePackage{graphicx}
+\RequirePackage{xspace}
+
+\errorcontextlines=5
+\showboxdepth=5
+\showboxbreadth=10
+
+
+% *** Generally useful definitions *****************************************
+
+\providecommand{\IfEmptyElse}[3]{%
+  \edef\test@empty{#1}%
+  \ifx\test@empty\@empty#2\else#3\fi}
+
+\providecommand{\IfNotEmpty}[2]{%
+  \IfEmptyElse{#1}{}{#2}}
+
+
+% *** Hyphenation & Linebreaking *******************************************
+
+\binoppenalty1000
+\newcommand\bcom{,\penalty750\relax}
+\newcommand\bbcom{,\penalty750\hskip0pt plus3pt minus1pt}
+\newcommand\bsemi{;\penalty750\relax}
+
+\hyphenation{au-to-ma-ta co-reach-able}
+
+\newcommand\LD[1][]{{\ensuremath{L_{\!\mathrm{d}}^{#1}}}\xspace}
+\newcommand\Ldelta[1][]{{\ensuremath{L_{\!\mathrm{\Delta}}^{#1}}}\xspace}
+
+\newcommand\Mask[1][]{{\ensuremath{\Lambda_{#1}}}}
+\newcommand\Alf[1][]{{\ensuremath{\Sigma_{#1}}}}
+\newcommand\DAlf[1][]{{\ensuremath{\Delta_{#1}}}}
+\newcommand\Alfc{{\ensuremath{\Alf\csub}}}
+\newcommand\Alfu{{\ensuremath{\Alf\usub}}}
+\newcommand\DAlfc{{\ensuremath{\DAlf\csub}}}
+\newcommand\DAlfu{{\ensuremath{\DAlf\usub}}}
+\newcommand\csub{_{\mathrm{c}}}
+\newcommand\usub{_{\mathrm{u}}}
+\newcommand\Ev[1][]{{\ensuremath{\mathcal{E}^{#1}}}\xspace}
+\newcommand\Gv[1][]{{\ensuremath{G_{\vmath}^{#1}}}\xspace}
+\newcommand\EV[1][]{{\ensuremath{E_{\vmath}^{#1}}}\xspace}
+\newcommand\GG[1][]{{\ensuremath{\mathcal{G}}}\xspace}
+\newcommand\EE[1][]{{\ensuremath{\mathcal{E}^{#1}}}\xspace}
+\newcommand\Ed[1][]{{\ensuremath{E_{\!\mathrm{d}}^{#1}}}\xspace}
+\newcommand\Kd[1][]{{\ensuremath{K_{\!\mathrm{d}}^{#1}}}\xspace}
+\newcommand\Vd[1][]{{\ensuremath{V_{\!\mathrm{d}}^{#1}}}\xspace}
+\newcommand\Gd[1][]{{\ensuremath{G_{\!\mathrm{d}}^{#1}}}\xspace}
+\newcommand\Sd[1][]{{\ensuremath{S_{\!\mathrm{d}}^{#1}}}\xspace}
+
+
+\newcommand\Av[1][]{{\ensuremath{A_{\vmath}^{#1}}}\xspace}
+\newcommand\vmath[1][]{\mathrm{v}}
+\newcommand\umath[1][]{\mathrm{u}}
+\newcommand\E[1][]{{\ensuremath{E^{#1}}}\xspace}
+\newcommand\K[1][]{{\ensuremath{K^{#1}}}\xspace}
+\newcommand\G[1][]{{\ensuremath{G^{#1}}}\xspace}
+\newcommand\LS{\ensuremath{L_\mathrm{S}}}
+\newcommand\Piv[1][]{{\mathcal{F^{#1}}}\xspace}
+
+\newcommand\RX{{\ensuremath{\mathcal{X}}}\xspace}
+\newcommand\RY{{\ensuremath{\mathcal{Y}}}\xspace}
+%\newcommand\MRX{{\ensuremath{G_\mathcal{X}}}\xspace}
+%\newcommand\MRY{{\ensuremath{G_\mathcal{Y}}}\xspace}
+
+\newcommand\MRX[1][]{{\ensuremath{G_{\!\mathcal{X}}^{#1}}}\xspace}
+\newcommand\MRY[1][]{{\ensuremath{G_{\!\mathcal{Y}}^{#1}}}\xspace}
+
+\newcommand\Xv[1][A]{{\ensuremath{{#1}_{\vmath}}}}
+
+
+\newcommand\SCP{{\ensuremath{\mathbf{SC}}-\ensuremath{\mathbf{P}}}\xspace}
+\newcommand\LMC{{\ensuremath{\mathbf{LMC}}-\ensuremath{\mathbf{P}}}\xspace}
+\newcommand\DLMC{{\ensuremath{\mathbf{DLMC}}-\ensuremath{\mathbf{P}}}\xspace}
+\newcommand\SCPD{{\ensuremath{\mathbf{DSC}}-\ensuremath{\mathbf{P}}}\xspace}
+\newcommand\SCPV{\hbox{SCP-\hskip-0.13em V}\xspace}
+\newcommand\selfloop{self\discretionary{-}{}{\kern0pt}loop\xspace}
+\newcommand\selfloops{self\discretionary{-}{}{\kern0pt}loops\xspace}
+\newcommand\Selfloop{Self\discretionary{-}{}{\kern0pt}loop\xspace}
+\newcommand\Selfloops{Self\discretionary{-}{}{\kern0pt}loops\xspace}
+\newcommand\statedet{state-\kern0pt deterministic\xspace}
+
+
+% *** Special Mathematical Symbols *****************************************
+
+\newcommand\ACT{{\ensuremath{\Sigma}}}
+\newcommand\ACTc{{\ensuremath{\ACT\csub}}}
+\newcommand\ACTstar{\ensuremath{\ACT^{*}}}
+\newcommand\ACTu{{\ensuremath{\ACT\usub}}}
+\newcommand\efatuple[2][]{\ensuremath{%
+  \left(
+	%\langle
+    #2\bcom
+    \stateset[#1]\initphant\bcom
+    \initstateset[#1]\bcom
+    \mkstateset[#1]\bcom
+    \mathord{\funcao[{#1}]}%\intrans_{#1}\initphant}%
+  %\rangle
+	\right)}}
+\newcommand\efatupleACT[1][]{\efatuple[#1]{\ACT\bcom V}}
+
+\newcommand\fa[2][]{\ensuremath{%
+  \left(
+	%\langle
+    #2\bcom
+    \stateset[{#1}]\initphant\bcom
+    \initstate[{#1}]\bcom
+    \mkstateset[{#1}]\bcom
+    \mathord{\funcao[{#1}]}%\intrans_{\!{#1}}\initphant}%
+  %\rangle
+	\right)
+	}}
+\newcommand\fatuple[1][]{\fa[{#1}]{\Alf_{#1}}}
+
+\newcommand\fav[2][]{\ensuremath{%
+  \left(
+	%\langle
+    #2\bcom
+    \stateset[{#1}]\initphant\bcom
+    \initstateset[{#1}]\bcom
+    \mkstateset[{#1}]\bcom
+    \mathord{\funcao[{#1}]}%\intrans_{\!{#1}}\initphant}%
+  %\rangle
+	\right)
+	}}
+\newcommand\fatuplev[1][]{\fav[{#1}]{\Alf}}
+
+
+\newcommand\OpSet{\{}
+\newcommand\ClSet{\}}
+
+\newcommand\CON{\ensuremath{\mathcal{C}}}
+\newcommand\CONE{\ensuremath{\CON_\exists}}
+\newcommand\CONV{\ensuremath{\CON\vsub}}
+\newcommand\detauttuple[2][]{\@auttuple[#1]{#2}{\{\initstate[#1]\}}}
+\newcommand\DOM{\ensuremath{\mathord{\mathrm{dom}}}}
+\newcommand\dotcup{\mathbin{\dot\cup}}
+\newcommand\dumpstate{{\ensuremath{\mathord{\perp}}}}
+\newcommand\dtrans[1][]{\@@trans\leftrightarrow\@dtrans@long{#1}}
+\newcommand\@dtrans@long[1]{\@trans@normal\longleftrightarrow{#1}}
+\newcommand\epre{$\exists$-\hskip0pt}
+\newcommand\event{\ensuremath{\sigma}\xspace}
+\newcommand\init{^\circ}
+\newcommand\initphant{^{\vphantom{\omega}}}
+\newcommand\state[1][]{\ensuremath{q_{#1}}}
+\newcommand\ev{\ensuremath{\sigma}}
+\newcommand\initstate[1][]{\ensuremath{q_{#1}\init}}
+\newcommand\initstateset[1][]{\ensuremath{Q\init_{#1}}}
+\newcommand\insim{\ensuremath{\mathord{\sim}}}
+\newcommand\intrans[1][]{\mbox{$\trans_{#1}$}\xspace}
+\newcommand\inttrans{\ensuremath{\mathord{\ttrans}}}
+\newcommand\LANG{\ensuremath{\mathcal{L}}}
+\newcommand\LANGM{\ensuremath{\LANG^\omega}}
+\newcommand\mk{^\omega}
+\newcommand\mkstate[1][]{\ensuremath{x_{#1}\mk}}
+\newcommand\mkstateset[1][]{\ensuremath{Q\mk_{#1}}}
+\newcommand\NAT{\ensuremath{\NNAT_0}}
+\newcommand\NNAT{\ensuremath{\mathbb{N}}}
+\newcommand\pclosure[1]{\overline{#1}}
+\newcommand\power[1]{\ensuremath{2^{#1}}}
+\newcommand\pph{^{\vphantom{\prime}}}
+\newcommand\proj{\theta}
+\newcommand\prefix{\leq}
+\newcommand\SCS{\ensuremath{\mathbf{SCS}}}
+\newcommand\WCS{\ensuremath{\mathbf{WCS}}}
+\newcommand\CS{\ensuremath{\mathbf{CS}}}
+\newcommand\CV{\ensuremath{\ensuremath{\Psi}}}
+\newcommand\Corol{Corol.\xspace}
+\newcommand\Def{Def.\xspace}
+\newcommand\Prop{Prop.\xspace}
+\newcommand\Ass{Assump.\xspace}
+\newcommand\Eq{Eq.\xspace}
+
+\newcommand\funcao[1][]{\ensuremath{\delta_{#1}}}
+
+
+\newcommand\stateset[1][]{\ensuremath{Q_{#1}}}
+\newcommand\subaut{\ensuremath{\subseteq}}
+\newcommand\supC{\ensuremath{\mathord{\mathrm{sup}\CON}}}
+\newcommand\supCE{\ensuremath{\mathord{\mathrm{sup}\CONE}}}
+\newcommand\supCV{\ensuremath{\mathord{\mathrm{sup}\CONV}}}
+\newcommand\sync{\ensuremath{\mathbin{\parallel}}}
+\newcommand\Sync{\ensuremath{\mathbin{\bigparallel}}}
+
+\newcommand\vsync{\ensuremath{\sslash}}
+\newcommand\loadX[1][]{\ensuremath{\vmath^\RX_{#1}}}
+\newcommand\loadY[1][]{\ensuremath{\vmath^\RY_{#1}}}
+
+
+\newcommand\terminate{\tau}
+\newcommand\@@trans[3]{%
+  \setbox1\hbox{${}^{#3}$}\setbox2\hbox{$#1$}%
+  \ifdim\wd1>1.2\wd2#2{#3}\else\@trans@normal{#1}{#3}\fi}
+\newcommand\@trans@normal[2]{\ifx#2\@empty#1\else\stackrel{#2}{#1}\fi}
+\newcommand\@trans@long[1]{\xrightarrow{#1}}
+\newcommand\@ttrans@long[1]{\@trans@normal\Longrightarrow{#1}}
+\newcommand\trans[1][]{\@@trans\rightarrow\@trans@long{#1}}
+\newcommand\ntrans[1][]{\@@trans\nrightarrow\@trans@long{#1}}
+\newcommand\ttrans[1][]{\@@trans\Rightarrow\@ttrans@long{#1}}
+\newcommand\vpre{$V$\kern-.25em-\hskip0pt}
+\newcommand\uevent{\mu}
+\newcommand\vsub{_{\!V}}
+\newcommand\vsup{^{\!V}}
+
+%---------- ini MT -------------
+\newcommand\mkL[1][]{\ensuremath{L\mk{#1}}}
+\newcommand\dom[1][]{\bar{{#1}}}
+%---------- end MT -------------
+
+% Long set
+
+\def\LongSet#1#2#3{\{\,
+  \vtop{\advance\hsize by-#1 \parindent=0pt \parskip=0pt \reset@font
+        \def\\{\hfill\break}%
+        #2\,\}~#3}}
+
+
+% *** Events and Automata **************************************************
+
+\newcommand\autname[1]{\ensuremath{\mathbf{#1}}}
+\newcommand\automaton[1]{\autname{#1}}
+\newcommand\statename[1]{\hbox{\it#1}}
+
+\newcommand\ceventname[1]{\ensuremath{\mathsf{#1}}}
+\newcommand\ueventname[1]{\hbox{\sf\slshape#1}}
+
+\newcommand\figscale{1}
+\newcommand\autgraphics[2][scale=\figscale]{\includegraphics[#1]{#2.eps}}
+\newcommand\autbox[2]{{\tabcolsep-4pt%
+  \begin{tabular}[t]{r@{ }r}%
+    #2\strut \\\noalign{\vskip-3ex}%
+    &\autgraphics{#1}%
+  \end{tabular}%
+}}
+
+\newdimen\hang@aut
+\newcommand\hangaut[2][scale=\figscale]{%
+  \setbox1=\hbox{\includegraphics[#1]{#2}}%
+  \hang@aut=-\ht1\advance\hang@aut\ht\strutbox
+  \raise\hang@aut\box1%
+}
+
+
+
+
+% *** Lists ****************************************************************
+
+\renewcommand\theenumi{(\@roman\c@enumi)}
+\renewcommand\labelenumi{\theenumi}
+
+\renewcommand\theenumii{\@alph\c@enumii)}
+\renewcommand\labelenumii{\theenumii}
+

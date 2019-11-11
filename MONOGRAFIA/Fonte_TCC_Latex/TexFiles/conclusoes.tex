@@ -1,0 +1,15 @@
+\chapter{Conclusões}
+
+	O presente trabalho resultou em aprimoramento em um sistema de reconhecimento de letras do alfabeto de LIBRAS, permitindo detectar letras que contém movimento e completando as letras identificáveis pelo sistema. O código foi portado, obviamente com alterações para funcionar corretamente e a coleta dos dados do sensor inercial e as redes neurais funcionaram. A única coisa que não foi possível cumprir foi o teste com outros usuários para validar o funcionamento do sistema.
+
+
+    A luva, a qual já havia sido construída em um trabalho anterior, possui fios e sensores expostos e frágeis. Então o manuseio da luva teve que ser bem delicado pois os fios das bobinas sempre soltavam, necessitando reparos. Uma solução pra isso em um trabalho futuro seria trocar a luva e esconder a fiação. Também escolher uma luva mais flexível, pois em alguns sinais é necessário fazer um pouco de força para a sinalização correta da letra, o que também pode vir a danificar os sensores. A comunicação I2C utilizada com o sensor inercial se mostrou pouco robusta por causa do tamanho do cabo (inicialmente 60 cm), que teve que ser reduzido para não causar tantos problemas de comunicação.
+    
+    Com relação ao microcontrolador, este foi suficiente para a demanda de processamento. Apesar disso, devido a abordagem de \textit{software} com \textit{background/foreground}, foi necessário temporizar e diminuir a frequência que se capturava os sinais. Como a aplicação é sensível ao tempo, seria interessante aplicar um \textit{protothread} ou um sistema operacional de tempo real para eliminar algumas esperas ocupadas.
+    
+    Para trabalhos futuros, como identificar sinais de LIBRAS simbolizam palavras e utilizam apenas uma mão e sem expressões faciais, seria necessário uma analise sobre o sensor inercial, trocando algumas posições de sensores para as características da rede neural ficarem mais marcantes. Para o processamento dos dados do sensor inercial poderia ser estudado e implementado o código que o microcontrolador do sensor já realiza os cálculos dos ângulos de rotação(\textit{Pitch, Yaw}) e se aplicar um sensor inercial de 9 ou 10 graus de liberdade para melhorar a precisão dos sinais lidos do sensor inercial.
+
+    Caso seja a intenção de implementar sinais com duas mãos, seria necessário outra luva, mas a demanda de tempo para a leitura das duas poderia ser elevada. Por isso deve-se utilizar a abordagem da luva com mais tipos de sensores, por exemplo alguns sensores resistivos de flexão, que são lidos mais rapidamente e simples de interpretar, juntamente com sensores inerciais de 9 ou 10 graus de liberdade.
+    
+    E  por fim, para implementar um sistema completo para identificar sinais e expressões faciais, seria necessário implementar processamento de imagem.
+    

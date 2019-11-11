@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.3 (3ce5693, 2018-03-11)"
+   sodipodi:docname="FibraAlgulo.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="434.2932"
+     inkscape:cy="622.51244"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:window-width="1366"
+     inkscape:window-height="717"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid825" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.66500002;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:3.99, 0.665;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 46.113094,139.00595 63.932116,-13.03703 14.84248,47.5196 v 0"
+       id="path815"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 44.60119,120.10714 57.15185,-5.62929 c 0,0 15.18131,-1.51884 20.15429,15.06436 5.12954,17.10525 8.87243,38.94588 8.87243,38.94588"
+       id="path819"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccsc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 49.514881,152.99107 44.790177,-13.04018 c -1.480118,1.06033 9.035152,-4.01834 13.607142,8.50446 8.44238,23.12391 7.12219,28.25999 7.37054,27.97024"
+       id="path821"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccsc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 52.744058,112.23104 -2.375019,2.89138 2.891393,2.37502 -0.129094,-1.31658 44.764495,-4.38919 0.129105,1.31659 2.375012,-2.89138 -2.891389,-2.37502 0.129114,1.31658 -44.764499,4.38919 -0.129096,-1.31659"
+       id="path827"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="51.187523"
+       y="120.43465"
+       id="text831"
+       transform="rotate(-8.5)"><tspan
+         sodipodi:role="line"
+         id="tspan829"
+         x="51.187523"
+         y="120.43465"
+         style="stroke-width:0.26458332">Coxa</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 132.44004,168.59844 3.19378,1.94952 1.94951,-3.19379 -1.28581,0.31108 -10.57647,-43.71801 1.28581,-0.31107 -3.19378,-1.9495 -1.94951,3.19379 1.2858,-0.31111 10.57648,43.71801 -1.28581,0.31106"
+       id="path827-3"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="133.4256"
+       y="145.24257"
+       id="text850"><tspan
+         sodipodi:role="line"
+         id="tspan848"
+         x="133.4256"
+         y="145.24257"
+         style="stroke-width:0.26458332">Canela</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.21237683px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 110.08666,108.83235 -2.93259,0.69219 0.39355,2.98315 0.63481,-0.9188 10.93358,7.33217 -0.63481,0.91882 2.93259,-0.69222 -0.39355,-2.98313 -0.63482,0.9188 -10.93358,-7.33218 0.63481,-0.91882"
+       id="path827-6"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccccccccc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="114.3378"
+       y="110.75223"
+       id="text860"><tspan
+         sodipodi:role="line"
+         id="tspan858"
+         x="114.3378"
+         y="110.75223"
+         style="stroke-width:0.26458332">Joelho</tspan></text>
+  </g>
+</svg>

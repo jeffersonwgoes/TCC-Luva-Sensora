@@ -1,0 +1,225 @@
+\chapter{Códigos desenvolvidos}
+	Os códigos desenvolvidos neste trabalho estão disponíveis em \citeonline{gitmeu}.
+	
+	O Código \ref{cod:start} inicia os periféricos utilizados neste trabalho, também inicia o sensor inercial e o \textit{display}. Ao iniciar, são necessários 10 segundos de espera para o funcionamento correto, essa espera é exibido no \textit{display}. Após a espera, é iniciado o sensor inercial e o código entra no laço principal.
+\begin{figure}[H]
+	\begin{lstlisting}[breaklines, style=CStyle, , frame=single, caption=Rotina de inicialização do projeto,  label=cod:start]
+void StartProjeto(void) {
+	ind_set_tim(&htim1);
+	ind_set_adc(&hadc1);
+	i2c_init(&hi2c1);
+	tim4_init(&htim4);
+	uart_init(&huart3);
+	uart_receive_it(&uart_d, 1);
+	lcd16x2_init(LCD16X2_DISPLAY_ON_CURSOR_OFF_BLINK_OFF);
+	lcd16x2_puts("Iniciando Sensor MPU");
+	for(uint8_t i = 0; i < 10; i++) {
+		HAL_Delay(1000);
+		lcd16x2_clrscr();
+		lcd16x2_puts("Iniciando em ");
+		lcd16x2_gotoxy(0, 1);
+		lcd16x2_putc(i + 49);
+	}	
+	lcd16x2_putc(result);
+	if(!i2c_device_ready(MPU_ADDR)) {
+		asm("NOP");
+		while(1);
+	}	
+	mpu_init(&mpu);
+	mpu.acc_res = ACC_SENS_2;
+	mpu_set_offset_acc_x(ACC_OFF_X);
+	mpu_set_offset_acc_y(ACC_OFF_Y);
+	mpu_set_offset_acc_z(ACC_OFF_Z);
+	lcd16x2_clrscr();
+	lcd16x2_gotoxy(0, 0);
+	lcd16x2_puts("TCC LIBRAS\nLETRA: -");
+}
+	\end{lstlisting}
+	\caption*{Fonte: Autoria própria.}
+\end{figure}
+	
+	O Código \ref{cod:Indutivo} faz a coleta dos sensores indutivos, selecionando um dos 12 pares de sensor/gerador e ativando o \textit{clock}. Após 4 $ms$ é feita a leitura do conversor A/D (Analógico para Digital). O valor desta leitura é armazenado em um vetor.
+\begin{figure}[H]
+\begin{lstlisting}[style=CStyle, breaklines, frame=single, caption=Rotina de coleta de dados do sensor indutivo,  label=cod:Indutivo]
+void feedTheInductiveSensor(void) {
+	for(uint8_t i = 0; i < 12; i++) {
+		ind_set_ger(ger[i]);
+		ind_set_sen(sen[i]);
+		ind_set_pwm(pwm[i]);
+		HAL_Delay(5);
+		ind_start_conversion();
+		while(!ind_get_conv_finish());
+		valores[i] = ind_get_conv_value();
+	}
+}
+\end{lstlisting}
+\caption*{Fonte: Autoria própria.}
+\end{figure}
+
+No Código \ref{cod:mainloop}, é demonstrado o laço principal do programa. Antes de entrar no laço, são iniciados os periféricos e variáveis na função \textit{StartProjeto},  e repete-se a captura dos dados do sensor indutivo e realiza-se a classificação. Uma interface serial foi configurada para a transferência dos dados do microcontrolador para o computador para treinamento de rede neural. E quando um dado chega na interface serial, a função \textit{sendToSerial} é chamada para mandar os dados dos sensores.
+
+\begin{figure}[H]
+\begin{lstlisting}[style=CStyle, breaklines, frame=single, caption=Laço principal do \textit{firmware},  label=cod:mainloop]
+int main(void) 
+{
+	StartProjeto();
+	while (1)
+	{
+		feedTheInductiveSensor();
+		if(xSemSerial) {
+			sendToSerial();
+		}
+		classifyLetter();
+	}
+}
+\end{lstlisting}
+\caption*{Fonte: Autoria própria.}
+\end{figure}
+
+O Código \ref{cod:rede1} é o treinamento da rede neural para os sensores indutivos em Python, onde é utilizado 75\% dos dados para treinamento e 25\% dos dados para teste.
+\begin{figure}[H]
+\begin{lstlisting}[breaklines, frame=single, caption=Treinamento da rede neural dos sensores indutivos em Python, style=CStyle, label=cod:rede1]
+def treinamento(activation, hidden_layers, verbose=False):
+	caracteristicas = arruma_dados()
+	scaler = pre.MinMaxScaler(feature_range=(-1,1))
+	scaler.fit(caracteristicas)
+	caracteristicas = scaler.transform(caracteristicas)
+	
+	x_train, x_test, y_train, y_test = train_test_split(caracteristicas, classes, test_size=0.25)
+	clf = MLPClassifier(hidden_layer_sizes=(hidden_layers,), activation=activation, max_iter=1500, shuffle=True, n_iter_no_change=100)
+	
+	clf.fit(x_train, y_train)
+	y_pred = clf.predict(x_test)
+	
+	return clf
+\end{lstlisting}
+\caption*{Fonte: Autoria própria.}
+\end{figure}
+
+Para a implementação do código da rede treinando no microcontrolador, o Código \ref{cod:defines1} exibe a quantia de entradas, o número de camadas ocultas e o número de saídas da rede. Também são exibidos todos os pesos e os \textit{bias} da rede treinada.
+
+\begin{figure}[H]
+	\begin{lstlisting}[breaklines, frame=single, caption=Definições da rede neural dos sensores indutivos, style=CStyle, label=cod:defines1]
+#define NUMBER_OF_INPUTS               12
+#define NUMBER_OF_HIDDEN               21
+#define NUMBER_OF_OUTPUTS              22
+float weightInputHidden[NUMBER_OF_INPUTS][NUMBER_OF_HIDDEN] {...};
+float weightHiddenOutput[NUMBER_OF_HIDDEN][NUMBER_OF_OUTPUTS] = {...};
+float biasHidden[NUMBER_OF_HIDDEN] = {...};
+float biasOutput[NUMBER_OF_OUTPUTS] = {...};
+	\end{lstlisting}
+	\caption*{Fonte: Autoria própria.}
+\end{figure}
+	
+	No Código \ref{cod:feedforward1}, é apresentada a rotina de \textit{feedforward} dos sensores indutivos, os valores dos sensores são a entrada, e baseado nos pesos treinados da rede neural, é dado um resultado da classificação.
+	
+\begin{figure}[H]
+\begin{lstlisting}[breaklines, frame=single, caption=\textit{Feedforward implementado no microcontrolador}, style=CStyle, label=cod:feedforward1]
+void classSystemPredict(float * entrada, float * saida) {
+	float oculta[NUMBER_OF_HIDDEN];
+	float sum = 0;
+	
+	for(int i = 0; i < NUMBER_OF_HIDDEN; i++) {
+		sum = 0;
+		for(int ii = 0; ii < NUMBER_OF_INPUTS; ii++) {
+		sum += entrada[ii] * weightInputHidden[ii][i];
+		}
+		oculta[i] = tanhf(sum + biasHidden[i]);
+	}
+	
+	for(int i = 0; i < NUMBER_OF_OUTPUTS; i++) {
+		float sum = 0;
+		for(int ii = 0; ii < NUMBER_OF_HIDDEN; ii++) {
+		sum += oculta[ii] * weightHiddenOutput[ii][i];
+		}
+		saida[i] = tanhf(sum + biasOutput[i]);
+	}
+}
+\end{lstlisting}
+\caption*{Fonte: Autoria própria.}
+\end{figure}
+	
+	\begin{figure}[H]
+	
+	O pós-processamento da rede neural dos sensores indutivos é feito verificando qual foi a saída com o maior valor, variando de 0 a 0,99. A classe com o maior valor é a saída da rede. 
+\begin{lstlisting}[breaklines, frame=single, caption=Pós processamento da rede neural dos sensores indutivos, style=CStyle, label=cod:pos1]
+char classSystemPostProcess(float * saidas) {
+	float max = 0;
+	int ind = 0;
+	for (int i = 0; i < NUMBER_OF_OUTPUTS; i++) {
+		if(max < saidas[i]) {
+			max = saidas[i];
+			ind = i;
+		}
+	}
+	char ret[] = {'A', 'B', 'C', 'D', 'E','F', 'G', '1', '2', 'L', 'M', 'N', 'O', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'Y', '3'};
+	return ret[ind];
+}
+\end{lstlisting}
+\caption*{Fonte: Autoria própria.}
+\end{figure}
+
+O Código \ref{cod:rede2} é o treinamento da rede neural para o sensor inercial em Python, onde é utilizado 80\% dos dados para treinamento e 20\% dos dados para teste.
+\begin{figure}[H]
+\begin{lstlisting}[breaklines, frame=single, caption=Treinamento da rede neural do sensor inercial Python, style=CStyle, label=cod:rede2]
+def TrainNeuralNet(data, classes, numberOfHidden, activationFunction, verbose=False):
+
+	xData, yData = LoadDataFromCsv()
+	scalledData, dataMin, dataMax = ScaleData(xData)
+	xTrain, xTest, yTrain, yTest = train_test_split(data, classes, test_size=0.2)
+	MLP = MLPClassifier(hidden_layer_sizes=(numberOfHidden,), activation=activationFunction, max_iter=10000, shuffle=True, n_iter_no_change=1000)
+	MLP.fit(xTrain, yTrain)
+	
+	yPredict = MLP.predict(xTest)
+\end{lstlisting}
+\caption*{Fonte: Autoria própria.}
+\end{figure}
+
+Para a implementação da rede neural para o sensor inercial também são feitas as definições de quantidade de entrada, saída e número de camadas ocultas. O Código \ref{cod:defines2} demonstra essas definições e também os vetores com os pesos da rede já treinada.
+
+\begin{figure}[H]
+	\begin{lstlisting}[breaklines, frame=single, caption=Definições da rede neural dos sensores indutivos, style=CStyle, label=cod:defines2]
+#define NUMBER_OF_INPUTS_A               40
+#define NUMBER_OF_HIDDEN_A               40
+#define NUMBER_OF_OUTPUTS_A              5
+
+float weightInputHiddenA[NUMBER_OF_INPUTS_A][NUMBER_OF_HIDDEN_A] {...};
+float weightHiddenOutputA[NUMBER_OF_HIDDEN_A][NUMBER_OF_OUTPUTS_A] = {...};
+float biasHiddenA[NUMBER_OF_HIDDEN_A] = {...};
+float biasOutputA[NUMBER_OF_OUTPUTS_A] = {...};
+	\end{lstlisting}
+	\caption*{Fonte: Autoria própria.}
+\end{figure}
+
+\begin{figure}[H]
+\begin{lstlisting}[breaklines, frame=single, caption=Vetor de respostas possíveis do pós processamento da rede neural do sensor inercial, style=CStyle, label=cod:feedfor2]
+char ret[] = {'-', 'K', 'J', 'H', 'X'};
+\end{lstlisting}
+\caption*{Fonte: Autoria própria.}
+\end{figure}
+
+ O Código \ref{cod:classify}, exibe a rotina de classificação. Após fazer a leitura dos sensores inerciais, é feita a classificação da letra, caso ela se encaixe nas classes 1, 2, ou 3, é acionada a captura dos dados do sensor inercial e feita a classificação do movimento. Finalmente o resultado é exibido no \textit{display}.
+\begin{figure}[H]
+\begin{lstlisting}[breaklines, frame=single, caption=Função que executa a classificação das letras, style=CStyle, label=cod:classify]
+void classifyLetter(void) {
+	lcd16x2_gotoxy(7, 1);
+	float input[NUMBER_OF_INPUTS];
+	float outpu[NUMBER_OF_OUTPUTS];
+	for(uint8_t i = 0; i < NUMBER_OF_INPUTS; i++)
+		input[i] = (float)valores[i];
+		
+	classSystemScaleDataInput(input);
+	classSystemPredict(input, outpu);
+	result = classSystemPostProcess(outpu);
+	HAL_Delay(50);
+	if(result == '1' || result == '2' || result == '3') {
+		getMpuValues();
+		classifyMoviment(result);
+	} else {
+		lcd16x2_gotoxy(7, 1);
+		lcd16x2_putc(result);
+	}
+}
+\end{lstlisting}
+\caption*{Fonte: Autoria própria.}
+\end{figure}

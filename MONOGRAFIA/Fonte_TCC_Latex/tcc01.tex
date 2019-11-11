@@ -1,0 +1,198 @@
+\documentclass[capchap,capsec,sumarioincompleto,a4paper,12pt,plainheader,normaltoc]{utfprtex}%
+
+%\usepackage{utfprtexPropostaTCC} 	% mt: usar quando for a proposta. Nesse caso, elimine as quinquilharias também (rosto, banca, ata, etc.)
+\usepackage{utfprtexTCC}	
+\usepackage[T1]{fontenc}% pacote para acentuação Português
+\usepackage[brazil]{babel} % pacote portugues brasileiro
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amsfonts,amssymb} % pacote matematico
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{circuitikz}
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{psfrag,stmaryrd,array,comment,pxfonts,subfig,textcomp}
+\usepackage{amsmath}
+\usepackage{geometry}
+\usepackage[breaklinks=true,linktocpage=true,pdfauthor={Jefferson Willian França Góes},pdftitle={Trabalho de Conclusão de Curso 2},pdfsubject={Trabalho de Conclusão de Curso 2}]{hyperref}
+\usepackage[alf,abnt-emphasize=bf,abnt-etal-text=it,bibjustif,abnt-etal-cite=2,abnt-etal-list=0,abnt-full-initials=yes]{abntcite}
+\usepackage{nomencl}
+\usepackage{graphicx,psfrag,stmaryrd,array,psfrag}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{nomencl}
+\usepackage{chngcntr}
+\definecolor{mGreen}{rgb}{0,0.6,0}
+\definecolor{mGray}{rgb}{0.5,0.5,0.5}
+\definecolor{mPurple}{rgb}{0.58,0,0.82}
+\definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
+
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
+\lstdefinestyle{CStyle}{
+	backgroundcolor=\color{backgroundColour},   
+	commentstyle=\color{mGreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{mGray},
+	stringstyle=\color{mPurple},
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                                  
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2,
+	language=C
+}
+
+\lstdefinestyle{Python}{
+	language=Python,
+	otherkeywords={self},             % Add keywords here
+	keywordstyle=\color{deepblue},
+	emphstyle=\color{deepred},    % Custom highlighting style
+	stringstyle=\color{deepgreen},
+	frame=tb,                         % Any extra options here
+	showstringspaces=false            % 
+}
+
+\usepackage{Refs/des}
+\usetikzlibrary{decorations.pathreplacing, arrows, positioning, calc, chains,fit,shapes}
+\geometry{
+ a4paper,
+ left=30mm,
+ top=30mm,
+ bottom=20mm,
+right=20mm
+ }
+\setlength{\parindent}{1.5cm}
+
+%\hyphenation{}
+
+\fazlistasiglas % Parâmetro opcional é o título da lista.
+
+\newcommand*{\captionsource}[2]{%
+  \caption[{#1}]{%
+    #1%
+    \\\hspace{\linewidth}%
+    \textbf{Fonte:} #2%
+  }%
+}
+
+
+\renewcommand{\lstlistingname}{Código}% Listing -> Algorithm
+\renewcommand{\lstlistlistingname}{Lista de Códigos}%
+
+
+\renewcommand{\floatpagefraction}{0.90}
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\bottomfraction}{0.95}
+\renewcommand{\textfraction}{0.05}
+\setlength{\intextsep}{5pt}
+\setlength{\textfloatsep}{5pt}
+\setlength{\floatsep}{5pt}
+
+\pdfstringdefDisableCommands{\edef\uppercase{}}
+
+\autorA{Jefferson Willian França Góes}
+\titulo{Aperfeiçoamento de um Sistema de reconhecimento de padrões do alfabeto de libras utilizando luva sensora}
+
+\orientador{Prof. Dr. Fábio Luiz Bertotti}
+\coorientador{Prof. Dr. Dalcimar Casanova}
+
+\palavraschave{Redes Neurais. Microcontroladores. Processamento de sinais. LIBRAS} % Palavras chave
+\keywords{Neural Network. Microcontroller. Signal Processing. LIBRAS} % Palavras chave em inglês
+
+\bancaA{Prof. Dr. Ricardo Bernardi}
+\bancaB{Prof Dra. Kathya Linares}
+
+\local{Pato Branco}
+
+\data{2019} 
+
+%%%%%%%%% Fim das definições iniciais %%%%%%%%%
+
+\begin{document} 
+    \counterwithout{lstlisting}{chapter}
+\capa 
+\folhaderosto
+
+	\tikz[remember picture,overlay] \node[opacity=1,inner sep=0pt] at (current page.center){\includegraphics[width=\paperwidth,height=\paperheight]{imagens/termodeaprovacao.pdf}};
+	\clearpage
+
+% EPIGRAFE (opcional).
+\begin{Epigrafe}{Alan Turing} % Parametro obrigatorio entre {} é o autor da epigrafe.
+	Um computador pode ser chamado de inteligente se ele pode enganar uma pessoa a pensar que é um ser humano.
+\end{Epigrafe}
+
+
+%% AGRADECIMENTOS
+\begin{Agradecimentos}
+Primeiramente agradeço ao meu orientador pela sugestão de um trabalho que já foi feito, dando continuidade aos trabalhos feitos por outros acadêmicos. Também agradeço ao meu coorientador pelo suporte dado em relação as redes neurais e como fazer tudo isso funcionar. Agradecendo também a minha namorada pelas correções fornecidas no trabalho e estar ao meu lado nessa jornada que também se estende à minha família e amigos que me aguentaram e me ajudaram nesta fase difícil da faculdade. E por último mas não menos importante um agradecimento aos professores em geral que me fizeram evoluir e descobrir mais sobre eu mesmo para superar todos os desafios.
+\end{Agradecimentos}
+
+% RESUMO:
+\begin{Resumo}
+%\hspace*{-1.53cm}GÓES, Jefferson W. F. APERFEIÇOAMENTO DE UM SISTEMA DE RECONHECIMENTO DE PADRÕES DO ALFABETO DE LIBRAS UTILIZANDO LUVA SENSORA. 2019. 46f. Monografia (Trabalho de Conclusão de Curso 2) - Curso de Engenharia de Computação, Universidade Tecnológica Federal do Paraná, Câmpus Pato Branco. Pato Branco, 2019.\par\quad\par
+
+\hspace*{-1.53cm}Linguagem Brasileira de Sinais (LIBRAS) é uma língua gestual-visual amplamente utilizada por surdos no Brasil. No ensino de LIBRAS, a interação com o objeto de ensino pode potencializar o aprendizado. A partir dessa premissa, acredita-se que um sistema de detecção do alfabeto de LIBRAS pode contribuir no processo de aprendizagem, assim como na tradução da linguagem em elementos textuais. Desta forma, este trabalho apresenta o 
+aperfeiçoamento de um sistema para reconhecimento de padrões do alfabeto de LIBRAS utilizando uma luva sensora previamente concebida. Como resultado, obteve-se um sistema que utiliza redes neurais capaz de reconhecer todas as letras do alfabeto, com um percentual de acerto de 84%.
+\end{Resumo}
+
+% ABSTRACT
+\begin{Abstract}
+%\hspace*{-1.53cm}GÓES, Jefferson. IMPROVEMENT OF A PATTERN RECOGNITION SYSTEM FOR LIBRAS ALPHABET USING A SENSING GLOVE. 2019. 68f. Monografia (Trabalho de Conclusão de Curso 2) - Curso de Engenharia de Computação, Universidade Tecnológica Federal do Paraná, Câmpus Pato Branco. Pato Branco, 2019. \par\quad\par
+
+
+\hspace*{-1.53cm}The Brazilian Sign Language (LIBRAS) it's a gestural-visual language used by deaf people in Brazil. In the teaching of LIBRAS, an interaction with the object of teaching can potentiate learning. From this premise, it is believed that a system of detection of the alphabet of LIBRAS can contribute in the learning process, as well as in the translation of the language into textual elements. Thus, this work presents the improvement of a system for recognizing patterns of the alphabet of LIBRAS using a previously conceived sensor glove. As a result, we obtained a system that uses neural networks capable of recognizing all the letters of the alphabet, with a correct percentage of 84%.
+\end{Abstract}
+
+
+\listadefiguras
+%\listofquadros
+\listadetabelas
+
+\newpage
+\section*{\textbf{Lista de Siglas}}
+\vspace{10mm}
+
+\begin{itemize}
+	\item[ADC] \hspace{30mm} Conversor Analógico Digital
+	\item[fem] \hspace{30mm} Força Eletromotriz
+	\item[MEMS] \hspace{30mm} Sistemas microeletromecânicos
+	\item[MLP] \hspace{30mm} Perceptron Multicamada
+\end{itemize}
+
+
+\sumario
+
+\input{TexFiles/introducao.tex}
+%%Referencial Teórico
+\chapter{Referencial Teórico}
+\input{TexFiles/ref-libras.tex}
+\input{TexFiles/ref-luvasensoras.tex}
+\input{TexFiles/ref-trabalhoAnterior.tex}
+\input{TexFiles/ref-acelerometro.tex}
+\input{TexFiles/ref-inducao.tex}
+\input{TexFiles/ref-patternrecognition.tex}
+
+%Materiais e Metodos
+\input{TexFiles/materiais.tex}
+\input{TexFiles/metodos.tex}
+\input{TexFiles/resultados.tex}
+\input{TexFiles/conclusoes.tex}
+\sigla{12}{asdasdas}
+
+
+\apendice
+\input{TexFiles/apendice.tex}
+\bibliographystyle{abnt-alf} 
+\bibliography{Refs/Ref}
+  
+\end{document}
+
